@@ -5,4 +5,6 @@ I use it with a Novation Launch Control connected to a Kenton USB to midi conver
 
 Don't know how efficient the code is...
 
+Arduino Uno R3 with Ethernet shield.
+
 See https://www.notesandvolts.com/2015/02/midi-and-arduino-build-midi-input.html on how to build an Arduino midi input.
