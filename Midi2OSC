@@ -13,16 +13,15 @@ MIDI_CREATE_DEFAULT_INSTANCE();
 EthernetUDP Udp;
 
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
-IPAddress ip(192, 168, 229, 7);
-//destination IP
-IPAddress outIp(192, 168, 229, 200);
-const unsigned int outPort = 10024;
+IPAddress ip(192, 168, 229, 7); //Arduino IP adjust as needed
+IPAddress outIp(192, 168, 229, 200); //destination IP adjust as needed
+const unsigned int outPort = 10024; //destination port adjust as needed
 
 void setup() {
   Ethernet.begin(mac,ip);
   Udp.begin(8888);
 
-  MIDI.begin(4);
+  MIDI.begin(4); //midi channel adjust as needed
   MIDI.setHandleControlChange(MyCCFunction);
 }
 
@@ -43,10 +42,10 @@ void handleOSC(float cc, int channel, const char* message)
 
 void MyCCFunction(byte midich, byte number, byte value) {
   switch (number) {
-    case 21:
+    case 21: //Midi CC adjust as needed
       channel = 1;
       cc = value / 127.0;
-      message = "/ch/01/mix/01";
+      message = "/ch/01/mix/01"; //OSC message adjust as needed
       handleOSC(cc, channel, message);
       break;
     case 22:
