@@ -4,7 +4,6 @@
 #include <EthernetUdp.h>
 #include <OSCMessage.h>
 
-int channel;
 float cc;
 const char* message;
 
@@ -21,7 +20,7 @@ void setup() {
   Ethernet.begin(mac,ip);
   Udp.begin(8888);
 
-  MIDI.begin(4); //midi channel adjust as needed
+  MIDI.begin(4); // Midi channel adjust as needed
   MIDI.setHandleControlChange(MyCCFunction);
 }
 
@@ -29,7 +28,7 @@ void loop() {
   MIDI.read(); // Read midi
 }
 
-void handleOSC(float cc, int channel, const char* message) 
+void handleOSC(float cc, const char* message) 
 {
   OSCMessage msg(message);
   msg.add(cc);
@@ -42,53 +41,45 @@ void handleOSC(float cc, int channel, const char* message)
 
 void MyCCFunction(byte midich, byte number, byte value) {
   switch (number) {
-    case 21: //Midi CC adjust as needed
-      channel = 1;
+    case 21: // Midi CC adjust as needed
       cc = value / 127.0;
-      message = "/ch/01/mix/01"; //OSC message adjust as needed
-      handleOSC(cc, channel, message);
+      message = "/ch/01/mix/01"; // OSC message adjust as needed
+      handleOSC(cc, message);
       break;
     case 22:
-      channel = 2;
       cc = value / 127.0;
       message = "/ch/02/mix/01";
-      handleOSC(cc, channel, message);
+      handleOSC(cc, message);
       break;
     case 23:
-      channel = 3;
       cc = value / 127.0;
       message = "/ch/03/mix/01";
-      handleOSC(cc, channel, message);
+      handleOSC(cc, message);
       break;
     case 24:
-      channel = 4;
       cc = value / 127.0;
       message = "/ch/04/mix/01";
-      handleOSC(cc, channel, message);
+      handleOSC(cc, message);
       break;
     case 25:
-      channel = 5;
       cc = value / 127.0;
       message = "/ch/05/mix/01";
-      handleOSC(cc, channel, message);
+      handleOSC(cc, message);
       break;
     case 26:
-      channel = 6;
       cc = value / 127.0;
       message = "/ch/07/mix/01";
-      handleOSC(cc, channel, message);
+      handleOSC(cc, message);
       break;
     case 27:
-      channel = 7;
-      cc = value / 127.0;
-      message = "/ch/07/mix/01";
-      handleOSC(cc, channel, message);
-      break;
-    case 28:
-      channel = 8;
       cc = value / 127.0;
       message = "/ch/09/mix/01";
-      handleOSC(cc, channel, message);
+      handleOSC(cc, message);
+      break;
+    case 28:
+      cc = value / 127.0;
+      message = "/ch/10/mix/01";
+      handleOSC(cc, message);
       break;
   }
 }
